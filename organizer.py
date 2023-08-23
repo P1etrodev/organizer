@@ -7,12 +7,11 @@ from tools import check_config_existence
 def main():
 	import sys
 
-	if hasattr(sys, 'frozen'):
-		location = Path(sys.executable).parent
-	else:
-		location = Path(__file__).parent
+	frozen: bool = hasattr(sys, 'frozen')
 
-	directory = sys.argv[1]
+	location: Path = Path(sys.executable).parent if frozen else Path(__file__).parent
+
+	directory: str = sys.argv[1]
 
 	config: dict = check_config_existence(location=location.resolve())
 
@@ -20,7 +19,7 @@ def main():
 		if file.name not in list(config.keys()) + ['Others']:
 
 			if file.suffix.split('.')[-1] not in list(reduce(lambda x, x2: x + x2, config.values())):
-				others_f = Path('Others')
+				others_f: Path = Path('Others')
 				others_f.mkdir(exist_ok=True)
 
 				file.rename(others_f.joinpath(file.name))
@@ -28,7 +27,7 @@ def main():
 				continue
 
 			for folder, extensions in config.items():
-				f = Path(folder)
+				f: Path = Path(folder)
 
 				if file.suffix.split('.')[-1] in extensions:
 					f.mkdir(exist_ok=True)

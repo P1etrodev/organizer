@@ -4,7 +4,7 @@ def check_config_existence(location):
 	from pathlib import Path
 	from json import load, dump
 
-	default_config = {
+	default_config: dict = {
 		'Documents': [
 			'txt',
 			'pdf',
@@ -51,7 +51,7 @@ def check_config_existence(location):
 		]
 	}
 
-	config_file = Path(location).joinpath('config.json')
+	config_file: Path = Path(location).joinpath('config.json')
 
 	if not config_file.exists():
 		with config_file.open('w') as f:
