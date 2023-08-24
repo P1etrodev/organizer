@@ -1,9 +1,7 @@
-
-
 def check_config_existence(location):
 	from pathlib import Path
 	from json import load, dump
-
+	
 	default_config: dict = {
 		'Documents': [
 			'txt',
@@ -50,13 +48,13 @@ def check_config_existence(location):
 			'msi'
 		]
 	}
-
+	
 	config_file: Path = Path(location).joinpath('config.json')
-
+	
 	if not config_file.exists():
 		with config_file.open('w') as f:
-			dump(default_config, f, indent=2)
+			dump(default_config, f, indent = 2)
 		return default_config
-
+	
 	with config_file.open('rb') as f:
 		return load(f)

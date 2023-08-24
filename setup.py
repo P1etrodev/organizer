@@ -1,5 +1,6 @@
 import sys
-from cx_Freeze import setup, Executable
+
+from cx_Freeze import Executable, setup
 
 # Dependencies are automatically detected, but it might need fine tuning.
 
@@ -7,15 +8,20 @@ from cx_Freeze import setup, Executable
 base = "Win32GUI" if sys.platform == "win32" else None
 
 setup(
-	name="Organizer",
-	executables=[
-		Executable("install.py", base=base, target_name='Install', icon='Icon.ico', uac_admin=True),
-		Executable("uninstall.py", base=base, target_name='Uninstall', icon='Icon.ico', uac_admin=True),
-		Executable("organizer.py", base=base, target_name='Organizer', icon='Icon.ico'),
+	version = '2.1',
+	name = "Organizer",
+	executables = [
+		Executable(
+			"install.py", base = base, target_name = 'Install', icon = 'Icon.ico', uac_admin = True
+		),
+		Executable(
+			"uninstall.py", base = base, target_name = 'Uninstall', icon = 'Icon.ico', uac_admin = True
+		),
+		Executable("organizer.py", base = base, target_name = 'Organizer', icon = 'Icon.ico'),
 	],
-	options={
+	options = {
 		'build_exe': {
-			'include_files': ['Icon.ico'],
+			'include_files': ['Icon.ico', 'Master.ico'],
 			'silent_level': 1
 		},
 	}
